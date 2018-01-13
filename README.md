@@ -13,5 +13,5 @@ Racket to WebAssembly "compiler".
 7. Observe a number printed in the console
 8. Change math expression in the `input.rkt` file
 
-wabt: https://github.com/WebAssembly/wabt
-racket: https://racket-lang.org/
+[wabt]: https://github.com/WebAssembly/wabt
+[racket]: https://racket-lang.org/
