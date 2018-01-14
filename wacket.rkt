@@ -1,6 +1,8 @@
 #!/usr/bin/env racket
 #lang racket
 
+(require racket/pretty)
+
 (define (wat-arith-func-value expr)
   (define (wat-arith-func-value-impl expr acc)
     (match expr
@@ -35,6 +37,6 @@
       [x (cons `(i32.const ,x) acc)]))
   (reverse (wat-arith-func-value-impl expr null)))
 
-(write `(module
-            (func (export "foo") (result i32)
-                  ,@(wat-arith-func-value (read)))))
+(pretty-write `(module
+                   (func (export "foo") (result i32)
+                         ,@(wat-arith-func-value (read)))))
