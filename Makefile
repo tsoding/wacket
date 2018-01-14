@@ -1,8 +1,8 @@
 foo.wasm: foo.wat
 	wat2wasm foo.wat
 
-foo.wat: input.rkt wacket.rkt
-	./wacket.rkt < input.rkt > foo.wat
+foo.wat: foo.rkt wacket.rkt
+	./wacket.rkt < foo.rkt > foo.wat
 
 .PHONY: clean
 
