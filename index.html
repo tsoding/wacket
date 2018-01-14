@@ -2,12 +2,14 @@
   <head>
     <title>Try WebAssembly</title>
   </head>
-  <script type="text/javascript">
-    var foo = fetch('foo.wasm')
-    .then(response => response.arrayBuffer())
-    .then(bytes => WebAssembly.instantiate(bytes, {}))
-    .then(k => console.log(k.instance.exports.foo()));
-  </script>
   <body>
+    <div id="wacket"></div>
+    <script type="text/javascript">
+      var wacketEntry = document.getElementById("wacket");
+      var foo = fetch('foo.wasm')
+      .then(response => response.arrayBuffer())
+      .then(bytes => WebAssembly.instantiate(bytes, {}))
+      .then(k => wacketEntry.innerHTML = "Result of math expression compiled by wacket: <strong>" + k.instance.exports.foo() + "</strong>");
+    </script>
   </body>
 </html>
