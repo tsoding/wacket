@@ -7,7 +7,7 @@ Racket to WebAssembly "compiler".
 1. Install [wabt][wabt]
 2. Install [racket][racket]
 3. `$ make`
-4. `$ python -m SimpleHTTPServer 3001` (Only Python 2 is supported)
+4. `$ ./server.rkt`
 5. `$ <browser> http://localhost:3001/index.html`
 8. Change math expression in the `foo.rkt` file and `make` again.
 
