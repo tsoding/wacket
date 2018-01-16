@@ -3,41 +3,41 @@
 
 (require racket/pretty)
 
-(define (wat-arith-func-value expr)
-  (define (wat-arith-func-value-impl expr acc)
+(define (wat-compile expr)
+  (define (wat-compile-impl expr acc)
     (match expr
       [(list (quote +) xs ...)
        (append
         (for/list ([_ (in-range (- (length xs) 1))])
           'i32.add)
-        (foldl wat-arith-func-value-impl
+        (foldl wat-compile-impl
                acc
                xs))]
       [(list (quote -) xs ...)
        (append
         (for/list ([_ (in-range (- (length xs) 1))])
           'i32.sub)
-        (foldl wat-arith-func-value-impl
+        (foldl wat-compile-impl
                acc
                xs))]
       [(list (quote *) xs ...)
        (append
         (for/list ([_ (in-range (- (length xs) 1))])
           'i32.mul)
-        (foldl wat-arith-func-value-impl
+        (foldl wat-compile-impl
                acc
                xs))]
       [(list (quote /) xs ...)
        (append
         (for/list ([_ (in-range (- (length xs) 1))])
           'i32.div_s)
-        (foldl wat-arith-func-value-impl
+        (foldl wat-compile-impl
                acc
                xs))]
       [x #:when (integer? x) (cons `(i32.const ,x) acc)]
       [unsupported (error "Cannot compile expression:" unsupported)]))
-  (reverse (wat-arith-func-value-impl expr null)))
+  (reverse (wat-compile-impl expr null)))
 
 (pretty-write `(module
                    (func (export "foo") (result i32)
-                         ,@(wat-arith-func-value (read)))))
+                         ,@(wat-compile (read)))))
