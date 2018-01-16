@@ -8,28 +8,28 @@
     (match expr
       [(list (quote +) xs ...)
        (append
-        (for/list ([_ (in-range (- (length xs) 1))])
+        (for/list ([_ (in-range (sub1 (length xs)))])
           'i32.add)
         (foldl wat-compile-impl
                acc
                xs))]
       [(list (quote -) xs ...)
        (append
-        (for/list ([_ (in-range (- (length xs) 1))])
+        (for/list ([_ (in-range (sub1 (length xs)))])
           'i32.sub)
         (foldl wat-compile-impl
                acc
                xs))]
       [(list (quote *) xs ...)
        (append
-        (for/list ([_ (in-range (- (length xs) 1))])
+        (for/list ([_ (in-range (sub1 (length xs)))])
           'i32.mul)
         (foldl wat-compile-impl
                acc
                xs))]
       [(list (quote /) xs ...)
        (append
-        (for/list ([_ (in-range (- (length xs) 1))])
+        (for/list ([_ (in-range (sub1 (length xs)))])
           'i32.div_s)
         (foldl wat-compile-impl
                acc
