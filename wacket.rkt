@@ -34,7 +34,8 @@
         (foldl wat-arith-func-value-impl
                acc
                xs))]
-      [x (cons `(i32.const ,x) acc)]))
+      [x #:when (integer? x) (cons `(i32.const ,x) acc)]
+      [unsupported (error "Cannot compile expression:" unsupported)]))
   (reverse (wat-arith-func-value-impl expr null)))
 
 (pretty-write `(module
