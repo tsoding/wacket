@@ -3,6 +3,9 @@
 
 (require racket/pretty)
 
+(define (wat-module expr)
+  `(module ,expr))
+
 (define (wat-compile expr)
   (define (wat-compile-impl expr acc)
     (match expr
@@ -38,6 +41,6 @@
       [unsupported (error "Cannot compile expression:" unsupported)]))
   (reverse (wat-compile-impl expr null)))
 
-(pretty-write `(module
-                   (func (export "foo") (result i32)
-                         ,@(wat-compile (read)))))
+(pretty-write (wat-module
+               `(func (export "foo") (result i32)
+                      ,@(wat-compile (read)))))
