@@ -3,7 +3,8 @@
 (provide wat-compile
          wat-module
          wat-export-func
-         wat-add)
+         wat-add
+         wat-sub)
 
 (define (wat-module expr)
   `(module ,expr))
@@ -12,8 +13,24 @@
   `(func (export ,name) (result i32)
          ,@body))
 
-(define (wat-add . xs)
-  xs)
+(define (wat-op op xs)
+  (append
+   (for/list ([x xs])
+     `(i32.const ,x))
+   (for/list ([_ (in-range (sub1 (length xs)))])
+     op)))
+
+(define (wat-add xs)
+  (wat-op 'i32.add xs))
+
+(define (wat-sub xs)
+  (wat-op 'i32.sub xs))
+
+(define (wat-mul xs)
+  (wat-op 'i32.mul xs))
+
+(define (wat-number x)
+  `(i32.const ,x))
 
 (define (wat-compile expr)
   (define (wat-compile-impl expr acc)
@@ -46,6 +63,6 @@
         (foldl wat-compile-impl
                acc
                xs))]
-      [x #:when (integer? x) (cons `(i32.const ,x) acc)]
+      [x #:when (integer? x) (cons (wat-number x) acc)]
       [unsupported (error "Cannot compile expression:" unsupported)]))
   (reverse (wat-compile-impl expr null)))
