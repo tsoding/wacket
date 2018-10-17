@@ -26,7 +26,7 @@
     '(param i32)))
 
 (define (wat-compile-func name args body)
-  ;; TODO: all compiled functions are exported
+  ;; TODO(#8): all compiled functions are exported
   `(func (export ,(symbol->string name))
          ,@(wat-compile-func-args args)
          ;; TODO: function result is hardcoded to i32
