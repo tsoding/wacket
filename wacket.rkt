@@ -1,7 +1,9 @@
-#!/usr/bin/env racket
 #lang racket
 
-(require racket/pretty)
+(provide wat-compile
+         wat-module
+         wat-export-func
+         wat-add)
 
 (define (wat-module expr)
   `(module ,expr))
@@ -9,6 +11,9 @@
 (define (wat-export-func name body)
   `(func (export ,name) (result i32)
          ,@body))
+
+(define (wat-add . xs)
+  xs)
 
 (define (wat-compile expr)
   (define (wat-compile-impl expr acc)
@@ -44,8 +49,3 @@
       [x #:when (integer? x) (cons `(i32.const ,x) acc)]
       [unsupported (error "Cannot compile expression:" unsupported)]))
   (reverse (wat-compile-impl expr null)))
-
-(pretty-write (wat-module
-               (wat-export-func
-                "foo"
-                (wat-compile (read)))))

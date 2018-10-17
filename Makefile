@@ -2,7 +2,7 @@ foo.wasm: foo.wat
 	wat2wasm foo.wat
 
 foo.wat: foo.rkt wacket.rkt
-	./wacket.rkt < foo.rkt > foo.wat
+	./compiler.rkt < foo.rkt > foo.wat
 
 .PHONY: clean
 
