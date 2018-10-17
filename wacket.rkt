@@ -29,7 +29,7 @@
   ;; TODO(#8): all compiled functions are exported
   `(func (export ,(symbol->string name))
          ,@(wat-compile-func-args args)
-         ;; TODO: function result is hardcoded to i32
+         ;; TODO(#9): function result is hardcoded to i32
          (result i32)
          ,@(append*
             (for/list ([x body])
