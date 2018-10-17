@@ -48,6 +48,6 @@
     [(list (quote define) (list name args ...) body ...)
      (wat-compile-func name args body)]
     [x #:when (integer? x) (list (wat-number x))]
-    ;; TODO: compilation of local function variables is not support
+    ;; TODO(#10): compilation of local function variables is not support
     [unsupported (error "Cannot compile expression:" unsupported)]))
 
