@@ -6,6 +6,10 @@
 (define (wat-module expr)
   `(module ,expr))
 
+(define (wat-export-func name body)
+  `(func (export ,name) (result i32)
+         ,@body))
+
 (define (wat-compile expr)
   (define (wat-compile-impl expr acc)
     (match expr
@@ -42,5 +46,6 @@
   (reverse (wat-compile-impl expr null)))
 
 (pretty-write (wat-module
-               `(func (export "foo") (result i32)
-                      ,@(wat-compile (read)))))
+               (wat-export-func
+                "foo"
+                (wat-compile (read)))))
