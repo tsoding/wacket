@@ -22,7 +22,7 @@
 
 (define (wat-compile-func-args args)
   (for/list ([_ args])
-    ;; TODO: all of the arguments are hardcoded to i32
+    ;; TODO(#7): all of the arguments are hardcoded to i32
     '(param i32)))
 
 (define (wat-compile-func name args body)
